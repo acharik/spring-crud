@@ -1,21 +1,18 @@
 package com.example.springcrud.entity;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hibernate.annotations.Check;
-import org.springframework.data.annotation.Id;
-
+import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +27,7 @@ public class LocContract {
 
     @Column(name = "date_begin",nullable = false)
     @NonNull
+
     private LocalDate dateBegin;
     @Column(name = "date_end")
     private LocalDate dateEnd;

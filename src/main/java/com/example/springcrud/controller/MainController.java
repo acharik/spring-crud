@@ -12,8 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +39,7 @@ public class MainController {
 
         return locContractService.getById(id);}
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable("id") Long id){
         locContractService.deleteById(id);
     }
@@ -49,8 +47,7 @@ public class MainController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     LocContract updateLocContract( @Validated @RequestBody LocContract locContract, @PathVariable("id") Long id){
-        locContract.setId(id);
-        return locContractService.saveLocContract(locContract);
+        return locContractService.saveLocContract(locContract,id);
     }
 
     @GetMapping(params = "num")

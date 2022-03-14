@@ -4,6 +4,7 @@ import com.example.springcrud.entity.LocContract;
 import com.example.springcrud.repository.LocContractRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
@@ -19,15 +20,27 @@ import java.util.zip.DataFormatException;
 public class LocContractService {
     private final LocContractRepository locContractRepository;
         public LocContract saveLocContract(LocContract locContract)  {
-            LocalDate dateBegin = locContract.getDateBegin();
-            LocalDate dateEnd = locContract.getDateEnd();
-            LocalDate dateCheckMax = LocalDate.of(2100,12,31);
-            LocalDate dateCheckMin = LocalDate.of(1950,1,1);
-            if(dateBegin.isBefore(dateCheckMax)&& dateBegin.isAfter(dateCheckMin)&&
-                    dateEnd.isBefore(dateCheckMax)&&dateEnd.isAfter(dateCheckMin)){
-            return locContractRepository.save(locContract);}
-            else throw new DateTimeException("Дата не входит в диапазон значений");
+            if(dateCheck(locContract)){return locContractRepository.save(locContract);}
+        else throw new DateTimeException("Дата не входит в диапазон значений");
         }
+    public LocContract saveLocContract(LocContract locContract, Long id)  {
+        Optional<LocContract> locContract2 = locContractRepository.findById(id);
+        if(locContract2.isEmpty()){
+            throw new NoSuchElementException("Запись не найдена");
+        }
+            locContract.setId(id);
+        if(dateCheck(locContract)){return locContractRepository.save(locContract);}
+        else throw new DateTimeException("Дата не входит в диапазон значений");
+    }
+    private boolean dateCheck(LocContract locContract) {
+        LocalDate dateBegin = locContract.getDateBegin();
+        LocalDate dateEnd = locContract.getDateEnd();
+        LocalDate dateCheckMax = LocalDate.of(2100,12,31);
+        LocalDate dateCheckMin = LocalDate.of(1950,1,1);
+        return dateBegin.isBefore(dateCheckMax) && dateBegin.isAfter(dateCheckMin) &&
+                dateEnd.isBefore(dateCheckMax) && dateEnd.isAfter(dateCheckMin);
+    }
+
     public Optional<LocContract> getById(Long id){
             Optional<LocContract> locContract = locContractRepository.findById(id);
             if(locContract.isEmpty()){
@@ -36,9 +49,15 @@ public class LocContractService {
             return locContractRepository.findById(id);
     }
     public void deleteById(Long id){
+
+        Optional<LocContract> locContract = locContractRepository.findById(id);
+        if(locContract.isEmpty()){
+            throw new NoSuchElementException("Запись не найдена");
+        }
         locContractRepository.deleteById(id);
     }
-    public LocContract getContractByNum(String num){return locContractRepository.findByNumContract(num);}
+    public LocContract getContractByNum(String num){
+            return locContractRepository.findByNumContract(num);}
     public List<LocContract> getContract(LocalDate date, Long count){
 
             List<LocContract> locContractList = (List<LocContract>) locContractRepository.findAll();
@@ -56,5 +75,6 @@ public class LocContractService {
         }
          return locContractRepository.findByDateBeginAfter(date).stream().limit(count).collect(Collectors.toList());
     }
+
 }
 
