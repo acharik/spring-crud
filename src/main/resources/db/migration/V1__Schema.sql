@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS Loc_contract;
+
 CREATE TABLE Loc_contract (
                               ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
                               date_begin DATE NOT NULL,
