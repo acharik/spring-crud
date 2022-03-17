@@ -21,8 +21,8 @@ import java.time.LocalDate;
 @Table(name = "loc_contract",uniqueConstraints = @UniqueConstraint(columnNames = "num_contract",name = "uniq_num_constraint"))
 @Check(constraints = "date_end >= date_begin")
 public class LocContract {
-    @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "date_begin",nullable = false)
