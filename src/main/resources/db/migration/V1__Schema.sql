@@ -12,3 +12,4 @@ CREATE TABLE Loc_contract (
                               CONSTRAINT date_end_check CHECK (date_end between date '1950-01-01' and date '2100-12-31')
 
 );
+CREATE INDEX pk_ind on Loc_contract(ID);
