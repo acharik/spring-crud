@@ -1,18 +1,20 @@
 package com.example.springcrud.entity;
 
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hibernate.annotations.Check;
-import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +24,7 @@ import java.time.LocalDate;
 @Check(constraints = "date_end >= date_begin")
 public class LocContract {
     @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -41,5 +44,7 @@ public class LocContract {
     private BigDecimal sum;
     @Column(name = "comment")
     private String comment;
-
+    @JsonManagedReference
+    @OneToMany(mappedBy="locContractId",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<LocBondStatus> locBondStatuses;
 }

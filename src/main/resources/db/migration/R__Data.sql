@@ -9,4 +9,5 @@ INSERT INTO loc_contract(date_begin,date_end, num_contract, sum, comment) values
 INSERT INTO loc_contract(date_begin,date_end, num_contract, sum, comment) values ('2022-01-01','2023-01-01','9',2,'test' );
 INSERT INTO loc_contract(date_begin,date_end, num_contract, sum, comment) values ('2022-01-01','2023-01-01','10',2,'test' );
 INSERT INTO loc_contract(date_begin,date_end, num_contract, sum, comment) values ('2022-01-01','2023-01-01','11',2,'test' );
-INSERT INTO loc_contract(date_begin,date_end, num_contract, sum, comment) values ('2022-01-01','2023-01-01','12',2,'test' )
+INSERT INTO loc_contract(date_begin,date_end, num_contract, sum, comment) values ('2022-01-01','2023-01-01','12',2,'test' );
+INSERT INTO loc_bond_status(id_loc_contract,date_status, total_main, cancel_main) values (2,'2023-01-01',13,2)

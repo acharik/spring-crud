@@ -41,7 +41,7 @@ public class MainControllerTest {
     @MockBean
     private LocContractService service;
     private LocContract locContract = new LocContract(1L, LocalDate.of(2021, 2, 2),
-            LocalDate.of(2022, 1, 1), "1234", new BigDecimal(233), "test");
+            LocalDate.of(2022, 1, 1), "1234", new BigDecimal(233), "test",null);
 
     @Test
     public void createLocContract_whenPostMethod() throws Exception {

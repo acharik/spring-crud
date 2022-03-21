@@ -26,7 +26,7 @@ public class ExceptionAdvice {
             }
             else  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getConstraintName());
         }
-    @ExceptionHandler
+   @ExceptionHandler
     public ResponseEntity<String> handleNotFoundContractEx(NoSuchElementException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
@@ -59,6 +59,9 @@ public class ExceptionAdvice {
           if(ex.getMessage().contains("Дата не входит в диапазон значений")){
               return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Дата не входит в диапазон значений");
           }
+        if(ex.getMessage().contains("для договора номер")){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
           else  return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

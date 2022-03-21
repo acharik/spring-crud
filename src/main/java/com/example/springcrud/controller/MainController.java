@@ -1,7 +1,9 @@
 package com.example.springcrud.controller;
 
 
+import com.example.springcrud.entity.LocBondStatus;
 import com.example.springcrud.entity.LocContract;
+import com.example.springcrud.service.LocBondStatusService;
 import com.example.springcrud.service.LocContractService;
 import com.example.springcrud.view.ExcelView;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("spring-crud/v1/loc_contract")
 public class MainController {
-
+    private final LocBondStatusService locBondStatusService;
     private final LocContractService locContractService;
 
     @PostMapping()
@@ -72,6 +74,7 @@ public class MainController {
         map.put("LocContractList", list);
         return new ModelAndView(excelView, map);
     }
+
 }
 
 
