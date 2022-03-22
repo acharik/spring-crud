@@ -20,7 +20,9 @@ public class ExceptionAdvice {
               ex.getConstraintName();
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Контракт с таким номером уже существует");
             }
-
+          if(ex.getConstraintName().contains("L1"))  {
+              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Контракта не существует");
+          }
             if(ex.getConstraintName().contains("DATE_END >= DATE_BEGIN"))  {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Дата конца должна быть позже даты начала");
             }
@@ -59,9 +61,7 @@ public class ExceptionAdvice {
           if(ex.getMessage().contains("Дата не входит в диапазон значений")){
               return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Дата не входит в диапазон значений");
           }
-        if(ex.getMessage().contains("для договора номер")){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-        }
+
           else  return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.zip.DataFormatException;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class LocBondStatusController {
     }
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public LocBondStatus add (@Validated @RequestBody LocBondStatus locBondStatus)  {
+    public LocBondStatus add (@Validated @RequestBody LocBondStatus locBondStatus){
 
         return locBondStatusService.saveLocBondStatus(locBondStatus);
     }

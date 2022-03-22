@@ -40,7 +40,7 @@ public class LocBondStatus {
     @JsonBackReference
     @ManyToOne(
             targetEntity = LocContract.class,
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
     )
     @JoinColumn(name = "id_loc_contract",nullable = false)
     private LocContract locContractId;
