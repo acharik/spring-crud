@@ -2,7 +2,9 @@ package com.example.springcrud.unit.controller;
 
 import com.example.springcrud.JsonUtil;
 import com.example.springcrud.controller.MainController;
+import com.example.springcrud.entity.LocBondStatus;
 import com.example.springcrud.entity.LocContract;
+import com.example.springcrud.service.LocBondStatusService;
 import com.example.springcrud.service.LocContractService;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -40,6 +42,9 @@ public class MainControllerTest {
 
     @MockBean
     private LocContractService service;
+
+    @MockBean
+    private LocBondStatusService locBondStatusService;
     private LocContract locContract = new LocContract(1L, LocalDate.of(2021, 2, 2),
             LocalDate.of(2022, 1, 1), "1234", new BigDecimal(233), "test",null);
 

@@ -1,11 +1,10 @@
 package com.example.springcrud.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.Check;
 
 import javax.persistence.*;
@@ -13,10 +12,11 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
+@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -44,7 +44,12 @@ public class LocContract {
     private BigDecimal sum;
     @Column(name = "comment")
     private String comment;
+
+    @OneToMany(mappedBy="locContractId",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Column(name = "loc_bond_statuses")
     @JsonManagedReference
-    @OneToMany(mappedBy="locContractId",cascade = CascadeType.ALL, orphanRemoval = true)
+
     private Set<LocBondStatus> locBondStatuses;
+
+
 }

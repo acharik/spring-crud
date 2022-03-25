@@ -46,7 +46,7 @@ public class LocContractService {
             if(locContract.isEmpty()){
                 throw new NoSuchElementException("Запись не найдена");
             }
-            return locContractRepository.findById(id);
+            return Optional.ofNullable(locContractRepository.findByIdAndFetchContractEagerly(id));
     }
     public void deleteById(Long id){
 
@@ -55,6 +55,9 @@ public class LocContractService {
             throw new NoSuchElementException("Запись не найдена");
         }
         locContractRepository.deleteById(id);
+    }
+    public List<LocContract> getContractFull(){
+            return (List<LocContract>) locContractRepository.retrieveAll();
     }
     public LocContract getContractByNum(String num){
             return locContractRepository.findByNumContract(num);}
