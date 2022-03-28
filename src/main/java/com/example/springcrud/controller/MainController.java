@@ -74,10 +74,7 @@ public class MainController {
         map.put("LocContractList", list);
         return new ModelAndView(excelView, map);
     }
-    @GetMapping("/full")
-    public List<LocContract> getAllFull(){
-        return locContractService.getContractFull();
-    }
+
 }
 
 

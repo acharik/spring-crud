@@ -20,8 +20,7 @@ import java.util.zip.DataFormatException;
 @Service
 @RequiredArgsConstructor
 public class LocContractService {
-    @PersistenceContext
-    private EntityManager entityManager;
+
 
     private final LocContractRepository locContractRepository;
         public LocContract saveLocContract(LocContract locContract)  {
@@ -51,7 +50,7 @@ public class LocContractService {
             if(locContract.isEmpty()){
                 throw new NoSuchElementException("Запись не найдена");
             }
-            return Optional.ofNullable(locContractRepository.findByIdAndFetchContractEagerly(id));
+            return locContractRepository.findById(id);
     }
     public void deleteById(Long id){
 
@@ -61,9 +60,7 @@ public class LocContractService {
         }
         locContractRepository.deleteById(id);
     }
-    public List<LocContract> getContractFull(){
-            return (List<LocContract>) locContractRepository.retrieveAll();
-    }
+
     public LocContract getContractByNum(String num){
             return locContractRepository.findByNumContract(num);}
     public List<LocContract> getContract(LocalDate date, Long count){
@@ -83,12 +80,7 @@ public class LocContractService {
         }
          return locContractRepository.findByDateBeginAfter(date).stream().limit(count).collect(Collectors.toList());
     }
-    public List<LocContract> getAllLazy() {
 
-        return (List<LocContract>) entityManager.createQuery("SELECT l.id, l.dateBegin, l.dateEnd, l.numContract, l.sum, l.comment from LocContract l ", LocContract.class)
-
-                .getResultList();
-    }
 
 }
 
