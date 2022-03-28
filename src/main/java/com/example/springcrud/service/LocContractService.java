@@ -7,6 +7,8 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
@@ -18,6 +20,9 @@ import java.util.zip.DataFormatException;
 @Service
 @RequiredArgsConstructor
 public class LocContractService {
+    @PersistenceContext
+    private EntityManager entityManager;
+
     private final LocContractRepository locContractRepository;
         public LocContract saveLocContract(LocContract locContract)  {
             if(dateCheck(locContract)){return locContractRepository.save(locContract);}
@@ -77,6 +82,12 @@ public class LocContractService {
             return locContractRepository.findByDateBeginAfter(date);
         }
          return locContractRepository.findByDateBeginAfter(date).stream().limit(count).collect(Collectors.toList());
+    }
+    public List<LocContract> getAllLazy() {
+
+        return (List<LocContract>) entityManager.createQuery("SELECT l.id, l.dateBegin, l.dateEnd, l.numContract, l.sum, l.comment from LocContract l ", LocContract.class)
+
+                .getResultList();
     }
 
 }
