@@ -21,6 +21,7 @@ public class LocBondStatusService {
         return  locBondStatusRepository.findAll();
     }
     public LocBondStatus saveLocBondStatus(LocBondStatus locBondStatus)  {
+
         List<LocBondStatus>locBondStatuses = locBondStatusRepository.findByLocContractId(locBondStatus.getLocContractId());
         if(locBondStatuses.isEmpty()){
             return locBondStatusRepository.save(locBondStatus);

@@ -48,4 +48,5 @@ public class LocBondStatus {
     private LocContract locContractId;
 
 
+
 }
