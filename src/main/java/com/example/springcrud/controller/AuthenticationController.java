@@ -22,7 +22,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping(value = "/api/v1/auth/")
+@RequestMapping(value = "/spring-crud/v1/auth/")
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
