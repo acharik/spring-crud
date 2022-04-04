@@ -16,7 +16,7 @@ public interface LocContractRepository extends JpaRepository<LocContract,Long> {
         LocContract findByNumContract(String num);
         List<LocContract> findByDateBeginAfter(LocalDate date);
         @Query("SELECT l FROM LocContract l    LEFT OUTER JOIN FETCH l.locBondStatuses WHERE l.id = (:id)")
-        LocContract  findByIdAndFetchContractEagerly(@Param("id") Long id);
+        Optional<LocContract> findByIdAndFetchContractEagerly(@Param("id") Long id);
         @Query("SELECT DISTINCT locContract from LocContract locContract LEFT OUTER JOIN FETCH locContract.locBondStatuses locBonStatuses")
         Iterable<LocContract> retrieveAll();
 

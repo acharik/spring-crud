@@ -3,6 +3,7 @@ package com.example.springcrud.exception;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,6 +24,7 @@ public class ExceptionAdvice {
           if(ex.getConstraintName().contains("L1"))  {
               return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Контракта не существует");
           }
+
             if(ex.getConstraintName().contains("DATE_END >= DATE_BEGIN"))  {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Дата конца должна быть позже даты начала");
             }
@@ -64,4 +66,8 @@ public class ExceptionAdvice {
 
           else  return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+    @ExceptionHandler
+    public ResponseEntity<String> dataIntegrityViolationEx(DataIntegrityViolationException ex){
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Недостаточно введенных данных");
+      }
 }

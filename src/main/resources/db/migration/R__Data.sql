@@ -10,4 +10,11 @@ INSERT INTO loc_contract(date_begin,date_end, num_contract, sum, comment) values
 INSERT INTO loc_contract(date_begin,date_end, num_contract, sum, comment) values ('2022-01-01','2023-01-01','10',2,'test' );
 INSERT INTO loc_contract(date_begin,date_end, num_contract, sum, comment) values ('2022-01-01','2023-01-01','11',2,'test' );
 INSERT INTO loc_contract(date_begin,date_end, num_contract, sum, comment) values ('2022-01-01','2023-01-01','12',2,'test' );
-INSERT INTO loc_bond_status(id_loc_contract,date_status, total_main, cancel_main) values (2,'2023-01-01',13,2)
+INSERT INTO loc_bond_status(id_loc_contract,date_status, total_main, cancel_main) values (2,'2023-01-01',13,2);
+INSERT INTO roles (name) values ( 'ROLE_USER' );
+INSERT INTO roles (name) values ( 'ROLE_ADMIN' );
+INSERT INTO users (username,email, first_name, last_name, password, created, updated, status) values ('tema','tema@mail.com','tema', 'charik','$2a$12$swC8fhdl3048vX..cRjoCew7gcSROOgRgBPXhFfGt9QIAaaBy3Ndu',current_date,current_date,'ACTIVE');
+insert INTO user_roles(user_id, role_id) values ( 1,2 );
+insert INTO user_roles(user_id, role_id) values ( 1,1 );
+INSERT INTO users (username,email, first_name, last_name, password, created, updated, status) values ('test','test@mail.com','tema', 'charik','$2a$12$swC8fhdl3048vX..cRjoCew7gcSROOgRgBPXhFfGt9QIAaaBy3Ndu',current_date,current_date,'ACTIVE');
+insert INTO user_roles(user_id, role_id) values ( 1,1 );

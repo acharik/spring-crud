@@ -68,7 +68,7 @@ public class LocContractFullServiceTest {
         locContract.setId(1L);
 
         when(locContractRepository.findByIdAndFetchContractEagerly(
-                locContract.getId())).thenReturn(locContract);
+                locContract.getId())).thenReturn(Optional.of(locContract));
 
         locContractFullService.deleteById(locContract.getId());
         verify(locContractRepository).deleteById(locContract.getId());
@@ -99,7 +99,7 @@ public class LocContractFullServiceTest {
         newLocContract.setId(1L);
         newLocContract.setNumContract("Test num new");
 
-        given(locContractRepository.findByIdAndFetchContractEagerly(locContract.getId())).willReturn(locContract);
+        given(locContractRepository.findByIdAndFetchContractEagerly(locContract.getId())).willReturn(Optional.of(locContract));
         locContractFullService.saveLocContract(newLocContract, locContract.getId());
 
         verify(locContractRepository).save(newLocContract);
@@ -129,7 +129,7 @@ public class LocContractFullServiceTest {
         LocContract locContract = new LocContract();
         locContract.setId(89L);
 
-        when(locContractRepository.findByIdAndFetchContractEagerly(locContract.getId())).thenReturn(locContract);
+        when(locContractRepository.findByIdAndFetchContractEagerly(locContract.getId())).thenReturn(Optional.of(locContract));
 
         Optional<LocContract> expected = locContractFullService.getById(locContract.getId());
 

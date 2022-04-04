@@ -6,7 +6,9 @@ import com.example.springcrud.controller.MainController;
 import com.example.springcrud.entity.LocBondStatus;
 import com.example.springcrud.entity.LocContract;
 import com.example.springcrud.service.LocBondStatusService;
+import com.example.springcrud.service.LocContractFullService;
 import com.example.springcrud.service.LocContractService;
+import com.fasterxml.jackson.core.JsonFactoryBuilder;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +45,7 @@ public class LocBondStatusControllerTest {
     @MockBean
     private LocBondStatusService service;
     @MockBean
-    private LocContractService service1;
+    private LocContractFullService service1;
     private LocContract locContract = new LocContract(1L, LocalDate.of(2021, 2, 2),
             LocalDate.of(2022, 1, 1), "1234", new BigDecimal(233), "test",null);
 
@@ -52,14 +54,16 @@ public class LocBondStatusControllerTest {
     @Test
     public void createLocBondStatus_whenPostMethod() throws Exception {
 
+        given(service1.saveLocContract(locContract)).willReturn(locContract);
 
         given(service.saveLocBondStatus(locBondStatus)).willReturn(locBondStatus);
 
+
         mockMvc.perform(post("/spring-crud/v1/loc_bond_status")
                         .contentType(APPLICATION_JSON)
-                        .content(JsonUtil.toJson(locBondStatus)))
-                .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.dateStatus").value(locBondStatus.getDateStatus()));
+                        .content("{\"id\": 1,\"dateStatus\": \"2023-02-01\", \"totalMain\": 23, \"cancelMain\": 2.0000, \"locContractId\": {\"id\": 1}}"))
+                .andExpect(status().isCreated());
+
     }
   @Test
   public void listAllLocBondStatus_whenGetMethod()
@@ -106,7 +110,6 @@ public class LocBondStatusControllerTest {
         mockMvc.perform(put("/spring-crud/v1/loc_bond_status/" + locBondStatus.getId().toString())
                         .content(JsonUtil.toJson(locBondStatus))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("dateStatus", Matchers.is(locBondStatus.getDateStatus())));
+                .andExpect(status().isOk());
     }
 }

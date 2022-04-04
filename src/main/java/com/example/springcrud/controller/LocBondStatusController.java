@@ -17,16 +17,18 @@ import java.util.zip.DataFormatException;
 @RequestMapping("spring-crud/v1/loc_bond_status")
 public class LocBondStatusController {
     private final LocBondStatusService locBondStatusService;
+
     @GetMapping
     public Iterable<LocBondStatus> getAll(){
         return locBondStatusService.getAll();
     }
+
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public LocBondStatus add (@Validated @RequestBody LocBondStatus locBondStatus){
-
+    public LocBondStatus add(@Validated @RequestBody LocBondStatus locBondStatus){
         return locBondStatusService.saveLocBondStatus(locBondStatus);
     }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable("id") Long id){

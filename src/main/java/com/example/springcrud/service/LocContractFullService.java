@@ -34,18 +34,20 @@ public class LocContractFullService {
 
     }
     public Optional<LocContract> getById(Long id){
-        Optional<LocContract> locContract = Optional.ofNullable(locContractRepository.findByIdAndFetchContractEagerly(id));
-        if(locContract.isEmpty()){
-            throw new NoSuchElementException("Запись не найдена");
+        Optional<LocContract> locContract = locContractRepository.findByIdAndFetchContractEagerly(id);
+        if(locContract.isPresent()){
+
+            return locContractRepository.findByIdAndFetchContractEagerly(id);
+
         }
-        return Optional.ofNullable(locContractRepository.findByIdAndFetchContractEagerly(id));
+        throw new NoSuchElementException("Запись не найдена");
     }
     public LocContract saveLocContract(LocContract locContract)  {
         if(dateCheck(locContract)){return locContractRepository.save(locContract);}
         else throw new DateTimeException("Дата не входит в диапазон значений");
     }
     public LocContract saveLocContract(LocContract locContract, Long id)  {
-        Optional<LocContract> locContract2 = Optional.ofNullable(locContractRepository.findByIdAndFetchContractEagerly(id));
+        Optional<LocContract> locContract2 = locContractRepository.findByIdAndFetchContractEagerly(id);
         if(locContract2.isEmpty()){
             throw new NoSuchElementException("Запись не найдена");
         }
@@ -63,7 +65,7 @@ public class LocContractFullService {
     }
     public void deleteById(Long id){
 
-        Optional<LocContract> locContract = Optional.ofNullable(locContractRepository.findByIdAndFetchContractEagerly(id));
+        Optional<LocContract> locContract = locContractRepository.findByIdAndFetchContractEagerly(id);
         if(locContract.isEmpty()){
             throw new NoSuchElementException("Запись не найдена");
         }
