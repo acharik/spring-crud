@@ -14,8 +14,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
-    private static final String LOGIN_ENDPOINT = "/api/v1/auth/login";
+    private static final String ADMIN_ENDPOINT = "/spring-crud/v1/admin/**";
+    private static final String LOGIN_ENDPOINT = "/spring-crud/v1/auth/login";
     private final JwtTokenProvider jwtTokenProvider;
     @Autowired
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {

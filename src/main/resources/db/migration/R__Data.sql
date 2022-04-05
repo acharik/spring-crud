@@ -17,4 +17,5 @@ INSERT INTO users (username,email, first_name, last_name, password, created, upd
 insert INTO user_roles(user_id, role_id) values ( 1,2 );
 insert INTO user_roles(user_id, role_id) values ( 1,1 );
 INSERT INTO users (username,email, first_name, last_name, password, created, updated, status) values ('test','test@mail.com','tema', 'charik','$2a$12$swC8fhdl3048vX..cRjoCew7gcSROOgRgBPXhFfGt9QIAaaBy3Ndu',current_date,current_date,'ACTIVE');
-insert INTO user_roles(user_id, role_id) values ( 1,1 );
+insert INTO user_roles(user_id, role_id) values ( 2,1 );
+
